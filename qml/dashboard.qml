@@ -38,20 +38,21 @@ ApplicationWindow{
 
             Text {
                 id: mphLabel
-                width: mphLabel.contentWidth
-                height: 34
                 color: "#000000"
                 text: qsTr("mph")
                 anchors.top: parent.bottom
-                font.pixelSize: 32
-                anchors.topMargin: -11
-                anchors.horizontalCenterOffset: 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.topMargin: -10
                 enabled: true
                 style: Text.Normal
-                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: "Haettenschweiler"
                 styleColor: "#000000"
             }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: stateGroup.state = "dashDefault"
         }
     }
 
@@ -100,8 +101,6 @@ ApplicationWindow{
 
     Image {
         id: tachometer
-        x: 560
-        y: 173
         width: tachometer.implicitWidth
         height: tachometer.implicitHeight
         source: "images/tachometerpanel.png"
@@ -111,26 +110,20 @@ ApplicationWindow{
             id: rpm
             x: 110
             y: 103
-            width: rpm.contentWidth
-            height: rpm.contentHeight
             color: "#000000"
             text: qsTr("2450")
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 60
-            anchors.verticalCenterOffset: -13
+            anchors.verticalCenterOffset: -10
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: "Haettenschweiler"
 
             Text {
                 id: rpmLabel
-                x: 0
-                width: rpmLabel.contentWidth
-                height: 34
-                color: "#000000"
                 text: qsTr("rpm")
                 anchors.top: parent.bottom
-                font.pixelSize: 32
-                anchors.topMargin: -11
+                font.pixelSize: 34
+                anchors.topMargin: -10
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: "Haettenschweiler"
             }
@@ -146,17 +139,16 @@ ApplicationWindow{
                 PropertyChanges {target: speedometer; y: 0}
                 PropertyChanges {
                     target: mph
-                    font.pixelSize: 100
+                    font.pixelSize: 130
                     anchors.verticalCenterOffset: -40
                 }
                 PropertyChanges {
                     target: mphLabel
-                    visible: true
+                    font.pixelSize: 40
+                    color: "#000000"
                 }
                 PropertyChanges {target: buttonPanel; x: 597}
                 PropertyChanges {target: tachometer; x: 560; y: 173}
-                PropertyChanges {target: batteryPanel; y: 344}
-                PropertyChanges {target: regenPanel; y: 344}
                 PropertyChanges {target: flexPanel; x: 0}
             },
             State {
@@ -169,12 +161,11 @@ ApplicationWindow{
                 }
                 PropertyChanges {
                     target: mphLabel
-                    visible: false
+                    font.pixelSize: 0
+                    color: "#e6e6e6"
                 }
                 PropertyChanges {target: buttonPanel; x: 800}
                 PropertyChanges {target: tachometer; x: 770; y: 370}
-                PropertyChanges {target: batteryPanel; y: 400}
-                PropertyChanges {target: regenPanel; y: 400}
                 PropertyChanges {target: flexPanel; x: -240}
             }
         ]
@@ -184,29 +175,10 @@ ApplicationWindow{
                 id: transition
                 ParallelAnimation {
                     PropertyAnimation {
-                        target: flexPanel
-                        property: "x"
-                        duration: 150
-                    }
-                }
-
-                ParallelAnimation {
-                    PropertyAnimation {
-                        target: buttonPanel
-                        property: "x"
-                        duration: 150
-                    }
-                }
-
-                ParallelAnimation {
-                    PropertyAnimation {
                         target: speedometer
                         property: "y"
                         duration: 150
                     }
-                }
-
-                ParallelAnimation {
                     PropertyAnimation {
                         target: mph
                         property: "anchors.verticalCenterOffset"
@@ -217,9 +189,26 @@ ApplicationWindow{
                         property: "font.pixelSize"
                         duration: 150
                     }
-                }
-
-                ParallelAnimation {
+                    PropertyAnimation {
+                        target: mphLabel
+                        property: "font.pixelSize"
+                        duration: 150
+                    }
+                    PropertyAnimation {
+                        target: mphLabel
+                        property: "color"
+                        duration: 150
+                    }
+                    PropertyAnimation {
+                        target: flexPanel
+                        property: "x"
+                        duration: 150
+                    }
+                    PropertyAnimation {
+                        target: buttonPanel
+                        property: "x"
+                        duration: 150
+                    }
                     PropertyAnimation {
                         target: tachometer
                         property: "x"
@@ -238,7 +227,7 @@ ApplicationWindow{
     }
 
     Timer {
-        interval: 1500
+        interval: 3000
         repeat: true
         running: true
         onTriggered: {
