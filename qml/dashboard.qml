@@ -240,16 +240,4 @@ ApplicationWindow{
             }
         ]
     }
-/*
-    Timer {
-        interval: 3000
-        repeat: true
-        running: true
-        onTriggered: {
-            var states = ["dashDefault", "camera"]
-            var index = (states.indexOf(stateGroup.state)+1) % states.length
-            stateGroup.state = states[index]
-        }
-    }
-    */
 }
