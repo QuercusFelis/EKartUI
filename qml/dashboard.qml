@@ -11,20 +11,18 @@ ApplicationWindow{
     color: "#1a1a1a"
 
     flags: Qt.Diag
+
+    //Speedometer
     Image {
         id: speedometer
         width: speedometer.implicitWidth
         height: speedometer.implicitHeight
         source: "images/speedpanel.png"
-        layer.smooth: false
-        antialiasing: false
-        enabled: false
-        smooth: true
         anchors.horizontalCenterOffset: 0
         anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
         fillMode: Image.PreserveAspectFit
-
+        
         Text {
             id: mph
             color: "#000000"
@@ -32,7 +30,6 @@ ApplicationWindow{
             anchors.verticalCenter: parent.verticalCenter
             style: Text.Normal
             styleColor: "#000000"
-            enabled: true
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: "Haettenschweiler"
 
@@ -43,19 +40,21 @@ ApplicationWindow{
                 anchors.top: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.topMargin: -10
-                enabled: true
                 style: Text.Normal
                 font.family: "Haettenschweiler"
                 styleColor: "#000000"
             }
         }
-
+        
         MouseArea {
             anchors.fill: parent
-            onClicked: stateGroup.state = "dashDefault"
+            onClicked: {
+                stateGroup.state = "dashDefault"
+            }
         }
     }
 
+    //Info panel
     Image {
         id: flexPanel
         width: flexPanel.implicitWidth
@@ -65,14 +64,27 @@ ApplicationWindow{
         fillMode: Image.PreserveAspectFit
     }
 
+    //Button panel
     Image {
         id: buttonPanel
         width: buttonPanel.implicitWidth
         height: buttonPanel.implicitHeight
         source: "images/flexpanel2.png"
         fillMode: Image.PreserveAspectFit
+
+        Button {
+            text: "Camera"
+            width: 60
+            height: 60
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
+            onClicked: stateGroup.state = "camera"
+        }
     }
 
+    //Battery charge panel
     Image {
         id: batteryPanel
         x: 197
@@ -86,6 +98,7 @@ ApplicationWindow{
         fillMode: Image.PreserveAspectFit
     }
 
+    //Regenerative braking panel
     Image {
         id: regenPanel
         x: 662
@@ -99,6 +112,7 @@ ApplicationWindow{
         fillMode: Image.PreserveAspectFit
     }
 
+    //Tachometer
     Image {
         id: tachometer
         width: tachometer.implicitWidth
@@ -130,9 +144,10 @@ ApplicationWindow{
         }
     }
 
+    //States & Transitions
     StateGroup {
         id: stateGroup
-        state: "camera"
+        state: "dashDefault"
         states: [
             State {
                 name: "dashDefault"
@@ -225,7 +240,7 @@ ApplicationWindow{
             }
         ]
     }
-
+/*
     Timer {
         interval: 3000
         repeat: true
@@ -236,4 +251,5 @@ ApplicationWindow{
             stateGroup.state = states[index]
         }
     }
+    */
 }
