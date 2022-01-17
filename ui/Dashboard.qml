@@ -49,11 +49,11 @@ Item {
 
     //Info panel
     Image {
-        id: flexPanel
-        width: flexPanel.implicitWidth
-        height: flexPanel.implicitHeight
+        id: infoPanel
+        width: infoPanel.implicitWidth
+        height: infoPanel.implicitHeight
         anchors.verticalCenter: parent.verticalCenter
-        source: "images/flexpanel.png"
+        source: "images/infopanel.png"
         fillMode: Image.PreserveAspectFit
     }
 
@@ -62,7 +62,7 @@ Item {
         id: buttonPanel
         width: buttonPanel.implicitWidth
         height: buttonPanel.implicitHeight
-        source: "images/flexpanel2.png"
+        source: "images/buttonpanel.png"
         fillMode: Image.PreserveAspectFit
 
         Button {
@@ -157,7 +157,7 @@ Item {
                 }
                 PropertyChanges {target: buttonPanel; x: 597}
                 PropertyChanges {target: tachometer; x: 560; y: 173}
-                PropertyChanges {target: flexPanel; x: 0}
+                PropertyChanges {target: infoPanel; x: 0}
             },
             State {
                 name: "camera"
@@ -174,7 +174,7 @@ Item {
                 }
                 PropertyChanges {target: buttonPanel; x: 800}
                 PropertyChanges {target: tachometer; x: 770; y: 370}
-                PropertyChanges {target: flexPanel; x: -240}
+                PropertyChanges {target: infoPanel; x: -240}
             }
         ]
         
@@ -208,7 +208,7 @@ Item {
                         duration: 150
                     }
                     PropertyAnimation {
-                        target: flexPanel
+                        target: infoPanel
                         property: "x"
                         duration: 150
                     }
