@@ -5,8 +5,6 @@ Rectangle {
 
     clip: true
     color: "transparent"
-    x: 230
-    anchors.bottom: parent.bottom
     height: batteryPanelImg.height
     width: batteryPanelImg.implicitWidth * batteryPercent;
 
