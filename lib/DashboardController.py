@@ -1,4 +1,3 @@
-import sys
 from PySide6.QtCore import QObject, Slot
 
 class DashboardController(QObject):
