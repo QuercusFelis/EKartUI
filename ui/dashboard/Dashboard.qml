@@ -26,56 +26,17 @@ Item {
     }
 
     //Regenerative braking panel
-    Image {
+    RegenPanel {
         id: regenPanel
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        source: "../images/regenpanel.png"
-        fillMode: Image.PreserveAspectFit
-        
-        Rectangle {
-        id: regenLeft
-        clip: true
-        color: "transparent"
-        anchors.top: parent.top
-        anchors.right: parent.horizontalCenter
-        height: parent.height
-        
-        Image {
-            id: regenLeftImg
-            source: "../images/regenleft.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.right: parent.right
-            }
-        }
-
-        Rectangle {
-        id: regenRight
-        clip: true
-        color: "transparent"
-        anchors.top: parent.top
-        anchors.left: parent.horizontalCenter
-        height: parent.height
-        
-        Image {
-            id: regenRightImg
-            source: "../images/regenright.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.left: parent.left
-            }
-        }
-
-        Image {
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        source: "../images/regennub.png"
-        fillMode: Image.PreserveAspectFit
-        }
     }
 
     //Battery charge panel
     BatteryPanel {
         id: batteryPanel
+        x: 230
+        anchors.bottom: parent.bottom
     }
 
     //Tachometer
@@ -157,8 +118,7 @@ Item {
             speedometer.speed = dashController.getSpeed();
             tachometer.rpm = dashController.getRPM();
             batteryPanel.batteryPercent = dashController.getBatteryPercent();
-            regenLeft.width = regenLeftImg.implicitWidth * dashController.getBatteryPercent();
-            regenRight.width = regenRightImg.implicitWidth * dashController.getBatteryPercent();
+            regenPanel.regenPercent = dashController.getBatteryPercent();
         }
     }
 }
