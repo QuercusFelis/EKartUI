@@ -94,15 +94,33 @@ Item {
     //Regenerative braking panel
     Image {
         id: regenPanel
-        x: 662
-        y: 220
-        width: regenPanel.implicitWidth
-        height: regenPanel.implicitHeight
         anchors.bottom: parent.bottom
-        source: "images/regenpanel.png"
-        anchors.bottomMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
+        source: "images/regenpanel.png"
         fillMode: Image.PreserveAspectFit
+
+        Image {
+        id: regenleft
+        anchors.top: parent.top
+        anchors.right: parent.horizontalCenter
+        source: "images/regenleft.png"
+        fillMode: Image.PreserveAspectFit
+        }
+        
+        Image {
+        id: regenright
+        anchors.top: parent.top
+        anchors.left: parent.horizontalCenter
+        source: "images/regenright.png"
+        fillMode: Image.PreserveAspectFit
+        }
+
+        Image {
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        source: "images/regennub.png"
+        fillMode: Image.PreserveAspectFit
+        }
     }
 
     //Tachometer
