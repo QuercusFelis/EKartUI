@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtGui import QGuiApplication
-from PySide6.QtQml import QQmlApplicationEngine, QmlElement
+from PySide6.QtQml import QQmlApplicationEngine
 from lib.DashboardController import DashboardController
 
 app = QGuiApplication([])
@@ -12,5 +12,5 @@ context = engine.rootContext()
 context.setContextProperty("dashController", dashController)
 
 if not engine.rootObjects():
-        sys.exit(-1)
+    sys.exit(-1)
 sys.exit(app.exec())
