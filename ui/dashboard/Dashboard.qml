@@ -5,43 +5,9 @@ import QtQuick.Controls
 Item {
     anchors.fill: parent
     //Speedometer
-    Image {
+    Speedometer {
         id: speedometer
-        width: speedometer.implicitWidth
-        height: speedometer.implicitHeight
-        source: "../images/speedpanel.png"
-        anchors.horizontalCenterOffset: 0
-        anchors.topMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
-        fillMode: Image.PreserveAspectFit
-        
-        Text {
-            id: mph
-            color: "#000000"
-            text: "35"
-            anchors.verticalCenter: parent.verticalCenter
-            styleColor: "#000000"
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "Haettenschweiler"
-
-            Text {
-                id: mphLabel
-                color: "#000000"
-                text: "mph"
-                anchors.top: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.topMargin: -10
-                font.family: "Haettenschweiler"
-                styleColor: "#000000"
-            }
-        }
-        
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                stateGroup.state = "dashDefault"
-            }
-        }
     }
 
     //Info panel
@@ -158,20 +124,14 @@ Item {
     //States & Transitions
     StateGroup {
         id: stateGroup
-        state: "dashDefault"
+        state: "default"
         states: [
             State {
-                name: "dashDefault"
-                PropertyChanges {target: speedometer; y: 0}
+                name: "default"
                 PropertyChanges {
-                    target: mph
-                    font.pixelSize: 130
-                    anchors.verticalCenterOffset: -40
-                }
-                PropertyChanges {
-                    target: mphLabel
-                    font.pixelSize: 40
-                    color: "#000000"
+                    target: speedometer
+                    open: true
+                    y: 0
                 }
                 PropertyChanges {target: buttonPanel; x: 597}
                 PropertyChanges {target: tachometer; x: 560; y: 173}
@@ -179,16 +139,10 @@ Item {
             },
             State {
                 name: "camera"
-                PropertyChanges {target: speedometer; y: -250}
                 PropertyChanges {
-                    target: mph
-                    font.pixelSize: 50
-                    anchors.verticalCenterOffset: 121
-                }
-                PropertyChanges {
-                    target: mphLabel
-                    font.pixelSize: 0
-                    color: "#e6e6e6"
+                    target: speedometer
+                    open: false
+                    y: -250
                 }
                 PropertyChanges {target: buttonPanel; x: 800}
                 PropertyChanges {target: tachometer; x: 770; y: 370}
@@ -198,31 +152,10 @@ Item {
         
         transitions: [
             Transition {
-                id: transition
                 ParallelAnimation {
                     PropertyAnimation {
                         target: speedometer
                         property: "y"
-                        duration: 150
-                    }
-                    PropertyAnimation {
-                        target: mph
-                        property: "anchors.verticalCenterOffset"
-                        duration: 150
-                    }
-                    PropertyAnimation {
-                        target: mph
-                        property: "font.pixelSize"
-                        duration: 150
-                    }
-                    PropertyAnimation {
-                        target: mphLabel
-                        property: "font.pixelSize"
-                        duration: 150
-                    }
-                    PropertyAnimation {
-                        target: mphLabel
-                        property: "color"
                         duration: 150
                     }
                     PropertyAnimation {
@@ -247,7 +180,7 @@ Item {
                     }
                 }
                 to: "*"
-               from: "*"
+                from: "*"
             }
         ]
     }
@@ -259,7 +192,7 @@ Item {
         running: true;
         onTriggered: {
             dashController.update();
-            mph.text = dashController.getSpeed();
+            speedometer.speed = dashController.getSpeed();
             rpm.text = dashController.getRPM();
             batteryPanel.width = batteryPanelImg.implicitWidth * dashController.getBatteryPercent();
             regenLeft.width = regenLeftImg.implicitWidth * dashController.getBatteryPercent();
