@@ -74,19 +74,8 @@ Item {
     }
 
     //Battery charge panel
-    Rectangle {
+    BatteryPanel {
         id: batteryPanel
-        clip: true
-        color: "transparent"
-        x: 230
-        anchors.bottom: parent.bottom
-        height: batteryPanelImg.height
-
-        Image {
-            id: batteryPanelImg
-            source: "../images/batterypanel.png"
-            fillMode: Image.PreserveAspectFit
-        }
     }
 
     //Tachometer
@@ -167,7 +156,7 @@ Item {
             dashController.update();
             speedometer.speed = dashController.getSpeed();
             tachometer.rpm = dashController.getRPM();
-            batteryPanel.width = batteryPanelImg.implicitWidth * dashController.getBatteryPercent();
+            batteryPanel.batteryPercent = dashController.getBatteryPercent();
             regenLeft.width = regenLeftImg.implicitWidth * dashController.getBatteryPercent();
             regenRight.width = regenRightImg.implicitWidth * dashController.getBatteryPercent();
         }
