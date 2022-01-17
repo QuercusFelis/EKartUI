@@ -90,35 +90,8 @@ Item {
     }
 
     //Tachometer
-    Image {
+    Tachometer {
         id: tachometer
-        width: tachometer.implicitWidth
-        height: tachometer.implicitHeight
-        source: "../images/tachometerpanel.png"
-        fillMode: Image.PreserveAspectFit
-
-        Text {
-            id: rpm
-            x: 110
-            y: 103
-            color: "#000000"
-            text: "2450"
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: 60
-            anchors.verticalCenterOffset: -10
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "Haettenschweiler"
-
-            Text {
-                id: rpmLabel
-                text: "rpm"
-                anchors.top: parent.bottom
-                font.pixelSize: 34
-                anchors.topMargin: -10
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: "Haettenschweiler"
-            }
-        }
     }
 
     //States & Transitions
@@ -193,7 +166,7 @@ Item {
         onTriggered: {
             dashController.update();
             speedometer.speed = dashController.getSpeed();
-            rpm.text = dashController.getRPM();
+            tachometer.rpm = dashController.getRPM();
             batteryPanel.width = batteryPanelImg.implicitWidth * dashController.getBatteryPercent();
             regenLeft.width = regenLeftImg.implicitWidth * dashController.getBatteryPercent();
             regenRight.width = regenRightImg.implicitWidth * dashController.getBatteryPercent();
