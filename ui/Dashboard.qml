@@ -1,17 +1,10 @@
 import QtQuick
-import QtQuick.Window
+import QtQuick.Timeline
 import QtQuick.Controls
-import QtQuick.Timeline 1.0
 
-ApplicationWindow{
-    id: window
-    width: 800
-    height: 400
-    visible: true
-    color: "#1a1a1a"
-
-    flags: Qt.Diag
-
+Item {
+    id: dashboard
+    anchors.fill: parent
     //Speedometer
     Image {
         id: speedometer
@@ -26,7 +19,7 @@ ApplicationWindow{
         Text {
             id: mph
             color: "#000000"
-            text: qsTr("35")
+            text: "35"
             anchors.verticalCenter: parent.verticalCenter
             style: Text.Normal
             styleColor: "#000000"
@@ -36,7 +29,7 @@ ApplicationWindow{
             Text {
                 id: mphLabel
                 color: "#000000"
-                text: qsTr("mph")
+                text: "mph"
                 anchors.top: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.topMargin: -10
@@ -125,7 +118,7 @@ ApplicationWindow{
             x: 110
             y: 103
             color: "#000000"
-            text: qsTr("2450")
+            text: "2450"
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 60
             anchors.verticalCenterOffset: -10
@@ -134,7 +127,7 @@ ApplicationWindow{
 
             Text {
                 id: rpmLabel
-                text: qsTr("rpm")
+                text: "rpm"
                 anchors.top: parent.bottom
                 font.pixelSize: 34
                 anchors.topMargin: -10
@@ -239,5 +232,17 @@ ApplicationWindow{
                from: "*"
             }
         ]
+    }
+
+    //Updates Dashboard Periodically
+    Timer {
+        interval: 25;
+        repeat: true;
+        running: true;
+        onTriggered: {
+            dashController.update();
+            mph.text = dashController.getSpeed();
+            rpm.text = dashController.getRPM();
+        }
     }
 }
