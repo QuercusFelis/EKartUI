@@ -3,10 +3,11 @@ import QtQuick.Timeline
 import QtQuick.Controls
 
 Image {
-    source: "../images/speedpanel.png"
-    fillMode: Image.PreserveAspectFit
     property string speed: "0"
     property bool open: true
+
+    source: "../images/speedpanel.png"
+    fillMode: Image.PreserveAspectFit
 
     Text {
         id: mph

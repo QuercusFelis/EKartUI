@@ -1,9 +1,10 @@
 import QtQuick
 
 Image {
+    property string rpm: "0"
+
     source: "../images/tachometerpanel.png"
     fillMode: Image.PreserveAspectFit
-    property string rpm: "0"
 
     Text {
         x: 110

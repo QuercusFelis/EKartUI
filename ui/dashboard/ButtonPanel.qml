@@ -3,12 +3,13 @@ import QtQuick.Timeline
 import QtQuick.Controls
 
 Image {
-    source: "../images/buttonpanel.png"
-    fillMode: Image.PreserveAspectFit
     readonly property int buttonSize: 65
     readonly property int buttonRadius: 15
     readonly property int outerMargin: 10
     readonly property int innerMargin: 5
+
+    source: "../images/buttonpanel.png"
+    fillMode: Image.PreserveAspectFit
 
     //Lights Toggle
     Button {
