@@ -1,12 +1,11 @@
 import QtQuick
+import org.ekart.DashboardController 1.0
 
 Rectangle {
-	property double batteryPercent: 0.0
-
 	clip: true
 	color: "transparent"
 	height: batteryPanelImg.height
-	width: batteryPanelImg.implicitWidth * batteryPercent;
+	width: batteryPanelImg.implicitWidth * DashboardController.batteryPercent;
 
 	Image {
 		id: batteryPanelImg

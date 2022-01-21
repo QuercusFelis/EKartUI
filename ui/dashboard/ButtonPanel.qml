@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Timeline
 import QtQuick.Controls
+import org.ekart.DashboardController 1.0
 
 Image {
 	readonly property int buttonSize: 65
@@ -23,7 +24,7 @@ Image {
 		font.pixelSize: 22
 		hoverEnabled: false
 		onClicked: {
-			dashController.toggleHeadlights()
+			DashboardController.toggleHeadlight()
 			checked = !checked
 		}
 
@@ -73,7 +74,7 @@ Image {
 		font.pixelSize: 17
 		hoverEnabled: false
 		onClicked: {
-			if(park.checked) buttonStateGroup.state = "settings"
+			if(lock.checked) buttonStateGroup.state = "settings"
 		}
 
 		background: Rectangle {
@@ -88,8 +89,8 @@ Image {
 
 	//Settings Button
 	Button {
-		id: park
-		text: "Park"
+		id: lock
+		text: "Lock"
 		checked: true
 		anchors.top: camera.bottom
 		anchors.right: settings.left
@@ -101,7 +102,7 @@ Image {
 		font.pixelSize: 22
 		hoverEnabled: false
 		onClicked: {
-			dashController.toggleParked()
+			DashboardController.toggleLocked()
 			checked = !checked
 		}
 
@@ -146,11 +147,13 @@ Image {
 			State {
 				name: "default"
 				PropertyChanges {target: settings; visible: true}
+				PropertyChanges {target: lock; visible: true}
 				PropertyChanges {target: back; visible: false}
 			},
 			State {
 				name: "settings"
 				PropertyChanges {target: settings; visible: false}
+				PropertyChanges {target: lock; visible: false}
 				PropertyChanges {target: back; visible: true}
 			}
 		]

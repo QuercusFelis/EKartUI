@@ -1,8 +1,7 @@
 import QtQuick
+import org.ekart.DashboardController 1.0
 
 Image {
-	property string rpm: "0"
-
 	source: "../images/tachometerpanel.png"
 	fillMode: Image.PreserveAspectFit
 
@@ -10,7 +9,7 @@ Image {
 		x: 110
 		y: 103
 		color: "#000000"
-		text: rpm
+		text: DashboardController.rpm
 		anchors.verticalCenter: parent.verticalCenter
 		font.pixelSize: 60
 		anchors.verticalCenterOffset: -10

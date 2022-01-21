@@ -1,42 +1,32 @@
 import QtQuick
 import QtQuick.Timeline
 import QtQuick.Controls
+import org.ekart.DashboardController 1.0
 
-Image {
-	property string speed: "0"
+Text {
 	property bool open: true
 
-	source: "../images/speedpanel.png"
-	fillMode: Image.PreserveAspectFit
+	id: mph
+	color: "#000000"
+	text: DashboardController.speed
+	anchors.verticalCenter: parent.verticalCenter
+	styleColor: "#000000"
+	anchors.horizontalCenter: parent.horizontalCenter
+	font.family: "Haettenschweiler"
 
 	Text {
-		id: mph
-		color: "#000000"
-		text: speed
-		anchors.verticalCenter: parent.verticalCenter
-		styleColor: "#000000"
+		id: mphLabel
+		text: "mph"
+		anchors.top: parent.bottom
 		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.topMargin: -10
 		font.family: "Haettenschweiler"
-
-		Text {
-			id: mphLabel
-			text: "mph"
-			anchors.top: parent.bottom
-			anchors.horizontalCenter: parent.horizontalCenter
-			anchors.topMargin: -10
-			font.family: "Haettenschweiler"
-			styleColor: "#000000"
-		}
-	}
-
-	MouseArea {
-		anchors.fill: parent
-		onClicked: stateGroup.state = "default"
+		styleColor: "#000000"
 	}
 
 	//States & Transitions
 	StateGroup {
-		id: buttonStateGroup
+		id: unlockedStateGroup
 		state: open ? "open" : "closed"
 		states: [
 			State {

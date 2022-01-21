@@ -4,9 +4,9 @@ import QtQuick.Controls
 
 Item {
 	anchors.fill: parent
-	//Speedometer
-	Speedometer {
-		id: speedometer
+	//CenterPanel
+	CenterPanel {
+		id: centerpanel
 		anchors.horizontalCenter: parent.horizontalCenter
 	}
 
@@ -52,7 +52,7 @@ Item {
 			State {
 				name: "default"
 				PropertyChanges {
-					target: speedometer
+					target: centerpanel
 					open: true
 					y: 0
 				}
@@ -63,7 +63,7 @@ Item {
 			State {
 				name: "camera"
 				PropertyChanges {
-					target: speedometer
+					target: centerpanel
 					open: false
 					y: -250
 				}
@@ -77,7 +77,7 @@ Item {
 			Transition {
 				ParallelAnimation {
 					PropertyAnimation {
-						target: speedometer
+						target: centerpanel
 						property: "y"
 						duration: 150
 					}
@@ -106,19 +106,5 @@ Item {
 				from: "*"
 			}
 		]
-	}
-
-	//Updates Dashboard Periodically
-	Timer {
-		interval: 25;
-		repeat: true;
-		running: true;
-		onTriggered: {
-			dashController.update();
-			speedometer.speed = dashController.getSpeed();
-			tachometer.rpm = dashController.getRPM();
-			batteryPanel.batteryPercent = dashController.getBatteryPercent();
-			regenPanel.regenPercent = dashController.getBatteryPercent();
-		}
 	}
 }

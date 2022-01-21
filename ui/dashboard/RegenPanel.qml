@@ -1,8 +1,7 @@
 import QtQuick
+import org.ekart.DashboardController 1.0
 
 Image {
-	property double regenPercent: 0
-		
 	source: "../images/regenpanel.png"
 	fillMode: Image.PreserveAspectFit
 		
@@ -12,7 +11,7 @@ Image {
 		anchors.top: parent.top
 		anchors.right: parent.horizontalCenter
 		height: parent.height
-		width: regenLeft.implicitWidth * regenPercent
+		width: regenLeft.implicitWidth * DashboardController.batteryPercent
 		
 		Image {
 			id: regenLeft
@@ -28,7 +27,7 @@ Image {
 		anchors.top: parent.top
 		anchors.left: parent.horizontalCenter
 		height: parent.height
-		width: regenRight.implicitWidth * regenPercent
+		width: regenRight.implicitWidth * DashboardController.batteryPercent
 		
 		Image {
 			id: regenRight

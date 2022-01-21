@@ -5,11 +5,11 @@ from lib.DashboardController import DashboardController
 
 app = QGuiApplication([])
 engine = QQmlApplicationEngine()
-engine.load("ui/Main.qml")
 
-dashController = DashboardController()
 context = engine.rootContext()
-context.setContextProperty("dashController", dashController)
+dashController = DashboardController(context)
+
+engine.load("ui/Main.qml")
 
 if not engine.rootObjects():
 	sys.exit(-1)
