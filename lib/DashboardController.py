@@ -10,7 +10,7 @@ class DashboardController(QObject):
 	testPlus = True #temp var used for test code
 	rpmVal = 0
 	batteryPercentage = 0.0
-	directionState = "park"
+	direction = "park"
 	isHeadlightOn = False
 	isLocked = True
 
@@ -36,7 +36,7 @@ class DashboardController(QObject):
 
 	@Slot(str)
 	def setDirection(self, state):
-		self.directionState = state
+		self.direction = state
 		self.directionChanged.emit(state)
 		print(">>>>>>>"+state)
 						
@@ -63,14 +63,14 @@ class DashboardController(QObject):
 
 	@Slot(result=bool)
 	def getForward(self):
-		if(self.directionState == "forward"):
+		if(self.direction == "forward"):
 			return True
 		else:
 			return False
 
 	@Slot(result=bool)
 	def getReverse(self):
-		if(self.directionState == "reverse"):
+		if(self.direction == "reverse"):
 			return True
 		else:
 			return False
@@ -97,7 +97,6 @@ class DashboardController(QObject):
 
 	speed = Property(str, getSpeed, notify=rpmChanged)
 	rpm = Property(str, getRPM, notify=rpmChanged)
-	direction = Property(str, fset=setDirection)
 	forward = Property(bool, getForward, notify=directionChanged)
 	reverse = Property(bool, getReverse, notify=directionChanged)
 	locked = Property(bool, getLocked, notify=lockedChanged)

@@ -49,7 +49,7 @@ Text {
 		MouseArea {
 			anchors.fill: parent
 			onClicked: {
-				DashboardController.direction = "reverse"
+				DashboardController.setDirection("reverse")
 			}
 		}
 	}
