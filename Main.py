@@ -1,13 +1,10 @@
 import sys
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
-from lib.DashboardController import DashboardController
+import lib.DashboardController
 
 app = QGuiApplication([])
 engine = QQmlApplicationEngine()
-
-context = engine.rootContext()
-dashController = DashboardController(context)
 
 engine.load("ui/Main.qml")
 
