@@ -74,7 +74,7 @@ Image {
 		font.pixelSize: 17
 		hoverEnabled: false
 		onClicked: {
-			if(lock.checked) buttonStateGroup.state = "settings"
+			if(!lock.checked) buttonStateGroup.state = "settings"
 		}
 
 		background: Rectangle {

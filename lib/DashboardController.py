@@ -10,7 +10,7 @@ class DashboardController(QObject):
 	testPlus = True #temp var used for test code
 	rpmVal = 0
 	batteryPercentage = 0.0
-	direction = "park"
+	direction = "parked"
 	isHeadlightOn = False
 	isLocked = True
 
@@ -21,7 +21,7 @@ class DashboardController(QObject):
 
 	def __init__(self, parent=None):
 		QObject.__init__(self, parent)
-		self.startTimer(25)
+		self.startTimer(100)
 
 	def timerEvent(self, event):
 		self.update()
@@ -36,9 +36,10 @@ class DashboardController(QObject):
 
 	@Slot(str)
 	def setDirection(self, state):
-		self.direction = state
-		self.directionChanged.emit(state)
-		print(">>>>>>>"+state)
+		if(self.rpmVal == 0):
+			self.direction = state
+			self.directionChanged.emit(state)
+			print(">>>>>>>"+state)
 						
 	@Slot()
 	def toggleLocked(self):
@@ -74,6 +75,13 @@ class DashboardController(QObject):
 			return True
 		else:
 			return False
+
+	@Slot(result=bool)
+	def getParked(self):
+		if(self.direction == "parked"):
+			return True
+		else:
+			return False
 	
 	@Slot(result=bool)
 	def getLocked(self):
@@ -83,21 +91,23 @@ class DashboardController(QObject):
 	def update(self):
 		if self.testPlus:
 			self.batteryPercentage += 0.05
-			self.rpmVal += 100
 		else:
 			self.batteryPercentage -= 0.05
-			self.rpmVal -= 100
-		self.rpmChanged.emit(self.rpmVal)
-		self.battPercentChanged.emit(self.batteryPercentage)
 
 		if self.batteryPercentage >= 1:
 			self.testPlus = False
+			self.rpmVal = 2500
 		elif self.batteryPercentage <= 0:
 			self.testPlus = True
+			self.rpmVal = 0
+
+		self.rpmChanged.emit(self.rpmVal)
+		self.battPercentChanged.emit(self.batteryPercentage)
 
 	speed = Property(str, getSpeed, notify=rpmChanged)
 	rpm = Property(str, getRPM, notify=rpmChanged)
 	forward = Property(bool, getForward, notify=directionChanged)
 	reverse = Property(bool, getReverse, notify=directionChanged)
+	parked = Property(bool, getParked, notify=directionChanged)
 	locked = Property(bool, getLocked, notify=lockedChanged)
 	batteryPercent = Property(float, getBatteryPercent, notify=battPercentChanged)
