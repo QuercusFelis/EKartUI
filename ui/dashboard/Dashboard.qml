@@ -11,13 +11,9 @@ Item {
 	}
 
 	//Info panel
-	Image {
+	InfoPanel {
 		id: infoPanel
-		width: infoPanel.implicitWidth
-		height: infoPanel.implicitHeight
 		anchors.verticalCenter: parent.verticalCenter
-		source: "../images/infopanel.png"
-		fillMode: Image.PreserveAspectFit
 	}
 
 	//Button panel

@@ -43,12 +43,13 @@ class DashboardController(QObject):
 						
 	@Slot()
 	def toggleLocked(self):
-		self.isLocked = not(self.isLocked)
-		self.lockedChanged.emit(self.isLocked)
-		if self.isLocked:
-			print(">>>>>>>locked!")
-		else:
-			print(">>>>>>>Unlocked!")
+		if(self.getParked):
+			self.isLocked = not(self.isLocked)
+			self.lockedChanged.emit(self.isLocked)
+			if self.isLocked:
+				print(">>>>>>>locked!")
+			else:
+				print(">>>>>>>Unlocked!")
 		
 	@Slot(result=str)
 	def getSpeed(self):

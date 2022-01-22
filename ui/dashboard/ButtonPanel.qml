@@ -73,8 +73,9 @@ Image {
 		font.family: "Haettenschweiler"
 		font.pixelSize: 17
 		hoverEnabled: false
+		visible: !lock.checked
 		onClicked: {
-			if(!lock.checked) buttonStateGroup.state = "settings"
+			buttonStateGroup.state = "settings"
 		}
 
 		background: Rectangle {
@@ -91,19 +92,18 @@ Image {
 	Button {
 		id: lock
 		text: "Lock"
-		checked: true
+		checked: DashboardController.locked
 		anchors.top: camera.bottom
-		anchors.right: settings.left
+		anchors.right: checked ? parent.right : settings.left
 		anchors.left: parent.left
 		anchors.topMargin: innerMargin
-		anchors.rightMargin: innerMargin
+		anchors.rightMargin: checked ? outerMargin : innerMargin
 		anchors.leftMargin: outerMargin
 		font.family: "Haettenschweiler"
 		font.pixelSize: 22
 		hoverEnabled: false
 		onClicked: {
 			DashboardController.toggleLocked()
-			checked = !checked
 		}
 
 		background: Rectangle {
