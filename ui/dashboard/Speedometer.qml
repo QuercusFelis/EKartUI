@@ -24,6 +24,36 @@ Text {
 		styleColor: "#000000"
 	}
 
+	Image {
+		id: forward
+		source: DashboardController.forward ? "../images/arrowselected.png" : "../images/arrow.png"
+		fillMode: Image.PreserveAspectFit
+		anchors.bottom: mph.top
+		anchors.horizontalCenter: parent.horizontalCenter
+		visible: true
+
+		MouseArea {
+			anchors.fill: parent
+			onClicked: DashboardController.setDirection("forward")
+		}
+	}
+
+	Image {
+		id: reverse
+		source: DashboardController.reverse ? "../images/arrowselected.png" : "../images/arrow.png"
+		fillMode: Image.PreserveAspectFit
+		rotation: 180
+		anchors.top: mphLabel.bottom
+		anchors.horizontalCenter: parent.horizontalCenter
+
+		MouseArea {
+			anchors.fill: parent
+			onClicked: {
+				DashboardController.direction = "reverse"
+			}
+		}
+	}
+
 	//States & Transitions
 	StateGroup {
 		id: unlockedStateGroup
@@ -41,6 +71,9 @@ Text {
 					font.pixelSize: 40
 					color: "#000000"
 				}
+				PropertyChanges {target: forward; visible: true}
+				PropertyChanges {target: reverse; visible: true}
+
 			},
 			State {
 				name: "closed"
@@ -54,6 +87,8 @@ Text {
 					font.pixelSize: 0
 					color: "#e6e6e6"
 				}
+				PropertyChanges {target: forward; visible: false}
+				PropertyChanges {target: reverse; visible: false}
 			}
 		]
 

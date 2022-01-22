@@ -10,11 +10,13 @@ class DashboardController(QObject):
 	testPlus = True #temp var used for test code
 	rpmVal = 0
 	batteryPercentage = 0.0
+	directionState = "park"
 	isHeadlightOn = False
 	isLocked = True
 
 	rpmChanged = Signal(int)
 	battPercentChanged = Signal(float)
+	directionChanged = Signal(str)
 	lockedChanged = Signal(bool)
 
 	def __init__(self, parent=None):
@@ -31,6 +33,12 @@ class DashboardController(QObject):
 			print(">>>>>>>Headlights ON!")
 		else:
 			print(">>>>>>>Headlights OFF!")
+
+	@Slot(str)
+	def setDirection(self, state):
+		self.directionState = state
+		self.directionChanged.emit(state)
+		print(">>>>>>>"+state)
 						
 	@Slot()
 	def toggleLocked(self):
@@ -52,6 +60,20 @@ class DashboardController(QObject):
 	@Slot(result=float)
 	def getBatteryPercent(self):
 		return self.batteryPercentage
+
+	@Slot(result=bool)
+	def getForward(self):
+		if(self.directionState == "forward"):
+			return True
+		else:
+			return False
+
+	@Slot(result=bool)
+	def getReverse(self):
+		if(self.directionState == "reverse"):
+			return True
+		else:
+			return False
 	
 	@Slot(result=bool)
 	def getLocked(self):
@@ -75,5 +97,8 @@ class DashboardController(QObject):
 
 	speed = Property(str, getSpeed, notify=rpmChanged)
 	rpm = Property(str, getRPM, notify=rpmChanged)
+	direction = Property(str, fset=setDirection)
+	forward = Property(bool, getForward, notify=directionChanged)
+	reverse = Property(bool, getReverse, notify=directionChanged)
 	locked = Property(bool, getLocked, notify=lockedChanged)
 	batteryPercent = Property(float, getBatteryPercent, notify=battPercentChanged)

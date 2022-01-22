@@ -16,6 +16,7 @@ Image {
 	}
 
 	MouseArea {
+		id: openButton
 		anchors.fill: parent
 		onClicked: stateGroup.state = "default"
 	}
@@ -32,6 +33,7 @@ Image {
 					visible: !DashboardController.locked
 					open: true
 					}
+				PropertyChanges {target: openButton; enabled: false}
 			},
 			State {
 				name: "closed"
@@ -40,6 +42,7 @@ Image {
 					visible: !DashboardController.locked
 					open: false
 				}
+				PropertyChanges {target: openButton; enabled: true}
 			}
 		]
 	}
