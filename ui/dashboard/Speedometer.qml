@@ -29,6 +29,7 @@ Text {
 		source: DashboardController.forward ? "../images/arrowselected.png" : "../images/arrow.png"
 		fillMode: Image.PreserveAspectFit
 		anchors.bottom: mph.top
+		anchors.bottomMargin: -15
 		anchors.horizontalCenter: parent.horizontalCenter
 		visible: true
 
@@ -71,8 +72,8 @@ Text {
 					font.pixelSize: 40
 					color: "#000000"
 				}
-				PropertyChanges {target: forward; visible: true}
-				PropertyChanges {target: reverse; visible: true}
+				PropertyChanges {target: forward; visible: DashboardController.default}
+				PropertyChanges {target: reverse; visible: DashboardController.default}
 
 			},
 			State {

@@ -75,7 +75,7 @@ Image {
 		hoverEnabled: false
 		visible: !lock.checked
 		onClicked: {
-			buttonStateGroup.state = "settings"
+			DashboardController.state = "settings"
 		}
 
 		background: Rectangle {
@@ -94,16 +94,15 @@ Image {
 		text: "Lock"
 		checked: DashboardController.locked
 		anchors.top: camera.bottom
-		anchors.right: checked ? parent.right : settings.left
 		anchors.left: parent.left
 		anchors.topMargin: innerMargin
-		anchors.rightMargin: checked ? outerMargin : innerMargin
 		anchors.leftMargin: outerMargin
 		font.family: "Haettenschweiler"
 		font.pixelSize: 22
 		hoverEnabled: false
 		onClicked: {
-			DashboardController.toggleLocked()
+			if(checked) DashboardController.state = "default"
+			else DashboardController.state = "locked"
 		}
 
 		background: Rectangle {
@@ -128,7 +127,7 @@ Image {
 		font.family: "Haettenschweiler"
 		font.pixelSize: 22
 		hoverEnabled: false
-		onClicked: buttonStateGroup.state = "default"
+		onClicked: DashboardController.state = "default"
 
 		background: Rectangle {
 			implicitHeight: buttonSize
@@ -142,19 +141,39 @@ Image {
 	//States & Transitions
 	StateGroup {
 		id: buttonStateGroup
-		state: "default"
+		state: DashboardController.state
 		states: [
 			State {
 				name: "default"
 				PropertyChanges {target: settings; visible: true}
-				PropertyChanges {target: lock; visible: true}
 				PropertyChanges {target: back; visible: false}
+				PropertyChanges {
+					target: lock 
+					visible: true
+					anchors.right: settings.left
+					anchors.rightMargin: innerMargin
+				}
 			},
 			State {
 				name: "settings"
 				PropertyChanges {target: settings; visible: false}
-				PropertyChanges {target: lock; visible: false}
 				PropertyChanges {target: back; visible: true}
+				PropertyChanges {
+					target: lock
+					visible: false
+					anchors.right: parent.right
+				}
+			},
+			State {
+				name: "locked"
+				PropertyChanges {target: settings; visible: false}
+				PropertyChanges {target: back; visible: false}
+				PropertyChanges {
+					target: lock
+					visible: true
+					anchors.right: parent.right
+					anchors.rightMargin: outerMargin
+				}
 			}
 		]
 	}

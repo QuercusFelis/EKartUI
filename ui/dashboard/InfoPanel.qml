@@ -31,4 +31,20 @@ Image {
 			color: parent.checked ? "#ffb0b0" : "#f2f2f2"
 		}
 	}
+
+	//States & Transitions
+	StateGroup {
+		id: infoStateGroup
+		state: DashboardController.state
+		states: [
+			State {
+				name: "default"
+				PropertyChanges {target: park; visible: true}
+			},
+			State {
+				name: "settings"
+				PropertyChanges {target: park; visible: false}
+			}
+		]
+	}
 }
