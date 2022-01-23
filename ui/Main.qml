@@ -10,7 +10,7 @@ ApplicationWindow{
 	visible: true
 	color: "#1a1a1a"
 
-	flags: Qt.Diag
+	flags: Qt.Dialog
 
 	Dashboard {}
 }
