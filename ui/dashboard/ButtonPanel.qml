@@ -34,7 +34,7 @@ Image {
 			border.color: "#1a1a1a"
 			border.width: 4
 			radius: buttonRadius
-			color: parent.checked ? "#c0c0c0" : "#f2f2f2"
+			color: parent.checked ? "#ffb0b0" : "#f2f2f2"
 		}
 	}
 
@@ -70,17 +70,18 @@ Image {
 		anchors.right: parent.right
 		anchors.topMargin: innerMargin
 		anchors.rightMargin: outerMargin
+		anchors.leftMargin: outerMargin
+		implicitWidth: DashboardController.parked ? buttonSize : 183
+		implicitHeight: buttonSize
 		font.family: "Haettenschweiler"
 		font.pixelSize: 17
 		hoverEnabled: false
-		visible: !lock.checked
 		onClicked: {
 			DashboardController.state = "settings"
 		}
 
 		background: Rectangle {
-			implicitWidth: buttonSize
-			implicitHeight: buttonSize
+			anchors.fill: parent
 			border.color: "#1a1a1a"
 			border.width: 4
 			radius: buttonRadius
@@ -145,11 +146,14 @@ Image {
 		states: [
 			State {
 				name: "default"
-				PropertyChanges {target: settings; visible: true}
+				PropertyChanges {
+					target: settings
+					visible: true
+				}
 				PropertyChanges {target: back; visible: false}
 				PropertyChanges {
 					target: lock 
-					visible: true
+					visible: DashboardController.parked
 					anchors.right: settings.left
 					anchors.rightMargin: innerMargin
 				}

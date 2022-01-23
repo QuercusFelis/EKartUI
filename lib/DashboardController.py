@@ -75,6 +75,13 @@ class DashboardController(QObject):
 			print(">>>>>>>"+direction)
 
 	@Slot(result=bool)
+	def getResting(self):
+		if(self.rpmVal < 50):
+			return True
+		else:
+			return False
+
+	@Slot(result=bool)
 	def getForward(self):
 		if(self.direction == "forward"):
 			return True
@@ -98,10 +105,9 @@ class DashboardController(QObject):
 #State Property Slots	
 	@Slot(str)
 	def setState(self, state):
-		if(self.getParked()):
-			self.dashState = state
-			self.stateChanged.emit(state)
-			print(">>>>>>>"+state)
+		self.dashState = state
+		self.stateChanged.emit(state)
+		print(">>>>>>>"+state)
 
 	@Slot(result=str)
 	def getState(self):
@@ -121,6 +127,7 @@ class DashboardController(QObject):
 	batteryPercent = Property(float, getBatteryPercent, notify=battPercentChanged)
 
 	#Direction Properties
+	atRest = Property(bool, getResting, notify=rpmChanged)
 	forward = Property(bool, getForward, notify=directionChanged)
 	reverse = Property(bool, getReverse, notify=directionChanged)
 	parked = Property(bool, getParked, notify=directionChanged)

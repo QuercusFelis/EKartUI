@@ -39,7 +39,11 @@ Image {
 		states: [
 			State {
 				name: "default"
-				PropertyChanges {target: park; visible: true}
+				PropertyChanges {
+					target: park
+					visible: (!DashboardController.locked && 
+						(DashboardController.atRest || DashboardController.parked))
+				}
 			},
 			State {
 				name: "settings"

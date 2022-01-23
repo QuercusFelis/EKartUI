@@ -72,9 +72,16 @@ Text {
 					font.pixelSize: 40
 					color: "#000000"
 				}
-				PropertyChanges {target: forward; visible: DashboardController.default}
-				PropertyChanges {target: reverse; visible: DashboardController.default}
-
+				PropertyChanges {
+					target: forward
+					visible: (!DashboardController.locked && 
+						(DashboardController.atRest || DashboardController.forward))
+				}
+				PropertyChanges {
+					target: reverse
+					visible: (!DashboardController.locked && 
+						(DashboardController.atRest || DashboardController.reverse))
+				}
 			},
 			State {
 				name: "closed"
