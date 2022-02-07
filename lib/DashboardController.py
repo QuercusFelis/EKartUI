@@ -56,7 +56,11 @@ class DashboardController(QObject):
 #Information Property Slots
 	@Slot(result=str)
 	def getSpeed(self):
-		return str(int(self.rpmVal/100))
+		# multiply motor rpm by gear ratio
+		wheelrpm = (self.rpmVal*9)/30
+		# wheel circumference (in miles) and (60 m/h)
+		speed = round(wheelrpm * 0.0003866793 * 60)
+		return str(speed)
 		
 	@Slot(result=str)
 	def getRPM(self):
