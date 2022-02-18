@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Timeline
+//import QtQuick.Timeline
 import QtQuick.Controls
 import org.ekart.DashboardController 1.0
 
