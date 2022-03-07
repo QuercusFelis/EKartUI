@@ -44,9 +44,7 @@ Item {
 	//Camera View
 
 	APDView {
-		id: APDView
-		anchors.verticalCenter: parent.verticalCenter
-		anchors.horizontalCenter: parent.horizontalCenter
+		id: apdView
 	}
 
 	//States & Transitions

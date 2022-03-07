@@ -1,6 +1,6 @@
 from PySide6.QtCore import Signal
 from PySide6.QtCore import QThread
-from PySide6.QtGui import QPixmap, QImage
+from PySide6.QtGui import QImage
 from PySide6.QtCore import Qt
 
 from multiprocessing.shared_memory import SharedMemory
@@ -9,7 +9,7 @@ import time
 import cv2
 
 class VideoThread(QThread):
-	frameChanged = Signal(QPixmap)
+	frameChanged = Signal(QImage)
 
 	def __init__(self):
 		super().__init__()
@@ -47,4 +47,4 @@ class VideoThread(QThread):
 		bytes_per_line = ch * w
 		convert_to_Qt_format = QImage(rgb_image.data, w, h, bytes_per_line, QImage.Format_RGB888)
 		p = convert_to_Qt_format.scaled(534, 400, Qt.KeepAspectRatio)
-		return QPixmap.fromImage(p)
+		return p
