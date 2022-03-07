@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Timeline
 import QtQuick.Controls
+import org.ekart.APDView 1.0
 
 Item {
 	anchors.fill: parent
@@ -38,6 +39,14 @@ Item {
 	//Tachometer
 	Tachometer {
 		id: tachometer
+	}
+
+	//Camera View
+
+	APDView {
+		id: APDView
+		anchors.verticalCenter: parent.verticalCenter
+		anchors.horizontalCenter: parent.horizontalCenter
 	}
 
 	//States & Transitions

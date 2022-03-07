@@ -2,6 +2,7 @@ import sys
 from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine
 import lib.DashboardController
+import lib.APDView
 
 app = QGuiApplication([])
 engine = QQmlApplicationEngine()
