@@ -14,7 +14,7 @@ class APDView(QQuickPaintedItem):
 		# connect its signal to the update_image slot
 		self.thread.frameChanged.connect(self.updateCameraFrame)
 		self.destroyed.connect(self.thread.stop())
-		# start the thread
+		# start the threads
 		self.thread.start()
 		
 	@Slot(QImage)

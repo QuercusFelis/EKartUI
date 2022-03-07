@@ -5,6 +5,19 @@ import org.ekart.APDView 1.0
 
 Item {
 	anchors.fill: parent
+
+	//Camera View
+	APDView {
+		id: apdView
+		anchors.horizontalCenter: parent.horizontalCenter
+		implicitWidth: 534
+		implicitHeight: 400
+		Rectangle {
+			anchors.fill: parent
+			color: "#33AA33"
+		}
+	}
+
 	//CenterPanel
 	CenterPanel {
 		id: centerpanel
@@ -41,11 +54,6 @@ Item {
 		id: tachometer
 	}
 
-	//Camera View
-
-	APDView {
-		id: apdView
-	}
 
 	//States & Transitions
 	StateGroup {
@@ -54,6 +62,9 @@ Item {
 		states: [
 			State {
 				name: "default"
+				PropertyChanges {
+					target: apdView; opacity: 0
+				}
 				PropertyChanges {
 					target: centerpanel
 					open: true
@@ -65,6 +76,9 @@ Item {
 			},
 			State {
 				name: "camera"
+				PropertyChanges {
+					target: apdView; opacity: 1
+				}
 				PropertyChanges {
 					target: centerpanel
 					open: false
@@ -79,6 +93,11 @@ Item {
 		transitions: [
 			Transition {
 				ParallelAnimation {
+					PropertyAnimation {
+						target: apdView
+						property: "opacity"
+						duration: 150
+					}
 					PropertyAnimation {
 						target: centerpanel
 						property: "y"
