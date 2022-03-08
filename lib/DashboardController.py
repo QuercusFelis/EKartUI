@@ -24,8 +24,10 @@ class DashboardController(QObject):
 		QObject.__init__(self, parent)
 		self.startTimer(25)
 
+
 	def timerEvent(self, event):
 		self.update()
+
 
 	def update(self):		
 		#tempory test code
@@ -44,6 +46,7 @@ class DashboardController(QObject):
 		self.rpmChanged.emit(self.rpmVal)
 		self.battPercentChanged.emit(self.batteryPercentage)
 
+
 #Control Slots
 	@Slot()
 	def toggleHeadlight(self):
@@ -52,6 +55,7 @@ class DashboardController(QObject):
 			print(">>>>>>>Headlights ON!")
 		else:
 			print(">>>>>>>Headlights OFF!")
+
 
 #Information Property Slots
 	@Slot(result=str)
@@ -69,6 +73,7 @@ class DashboardController(QObject):
 	@Slot(result=float)
 	def getBatteryPercent(self):
 		return self.batteryPercentage
+
 
 #Direction Property Slots
 	@Slot(str)
@@ -106,6 +111,7 @@ class DashboardController(QObject):
 		else:
 			return False
 
+
 #State Property Slots	
 	@Slot(str)
 	def setState(self, state):
@@ -124,6 +130,7 @@ class DashboardController(QObject):
 	@Slot(result=bool)
 	def getLocked(self):
 		return self.dashState == "locked"
+
 
 	#Information Properties
 	speed = Property(str, getSpeed, notify=rpmChanged)
