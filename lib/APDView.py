@@ -13,17 +13,15 @@ class APDView(QQuickPaintedItem):
 		self.thread = VideoThread()
 		# connect its signal to the update_image slot
 		self.thread.frameChanged.connect(self.updateCameraFrame)
-		self.destroyed.connect(self.thread.stop())
 		# start the threads
 		self.thread.start()
 		
-	@Slot(QImage)
+	@Slot(bool)
 	def updateCameraFrame(self, qimg):
-		self.cameraFrame = qimg
 		self.update()
 
 	def paint(self, painter: QPainter) -> None:
-		painter.drawImage(self.cameraFrame)
+		print("in paint()")
 
 # Register as QML type
 qmlRegisterType(APDView, "org.ekart.APDView", 1, 0, "APDView")
