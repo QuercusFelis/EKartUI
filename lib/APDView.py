@@ -16,12 +16,18 @@ class APDView(QQuickPaintedItem):
 		# start the threads
 		self.thread.start()
 		
-	@Slot(bool)
+	#@Slot(bool)
+	@Slot(QImage)
 	def updateCameraFrame(self, qimg):
+		print("In updateCameraFrame()")
 		self.update()
+		self.updatePolish()
+		self.cameraFrame = self.thread.get_frame()
 
 	def paint(self, painter: QPainter) -> None:
-		print("in paint()")
+		#print("in paint()")
+		print("in paint - cameraFrame data: " + str(self.cameraFrame))
+		painter.drawImage(0,0,self.cameraFrame)
 
 # Register as QML type
 qmlRegisterType(APDView, "org.ekart.APDView", 1, 0, "APDView")

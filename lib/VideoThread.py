@@ -10,6 +10,7 @@ import cv2
 
 class VideoThread(QThread):
 	frameChanged = Signal(bool)
+	qframe = None
 
 	def __init__(self):
 		super().__init__()
@@ -18,28 +19,34 @@ class VideoThread(QThread):
 
 	def run(self):
 		#create a shared memory for reading the frame shape
-#		frame_shape_shm = SharedMemory(name="frame_shape")
-#		frame_shape = np.ndarray([3], buffer=frame_shape_shm.buf, dtype='i4')
+		frame_shape_shm = SharedMemory(name="frame_shape")
+		frame_shape = np.ndarray([3], buffer=frame_shape_shm.buf, dtype='i4')
 
 		#create the shared memory for the frame buffer
-#		frame_buffer_shm = SharedMemory(name="frame_buffer")
+		frame_buffer_shm = SharedMemory(name="frame_buffer")
 
 		#create the framebuffer using the shm's memory
-#		frame_buffer = np.ndarray(frame_shape, buffer=frame_buffer_shm.buf, dtype='u1')
+		frame_buffer = np.ndarray(frame_shape, buffer=frame_buffer_shm.buf, dtype='u1')
 
 		# Retrieve new frames from frame_buffer and send them off to App
 		while self._run_flag:
-#			qframe = self.convert_cv_qt(frame_buffer)
-#			self.frameChanged.emit(qframe)
+			#qframe = self.convert_cv_qt(frame_buffer)
+			#self.frameChanged.emit(qframe)
+			self.qframe = self.convert_cv_qt(frame_buffer)
+			self.frameChanged.emit(self.qframe)
 			time.sleep(0.02)
-#			print("in run")
-			self.frameChanged.emit(True)
+			print("in run")
+			#self.frameChanged.emit(True)
 
 
 	def stop(self):
 		"""Sets run flag to False and waits for thread to finish"""
 		self._run_flag = False
 		self.wait()
+		
+		
+	def get_frame(self):
+		return self.qframe
 
 
 	def convert_cv_qt(self, cv_img):
