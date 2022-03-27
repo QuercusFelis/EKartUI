@@ -19,14 +19,14 @@ class APDView(QQuickPaintedItem):
 	#@Slot(bool)
 	@Slot(QImage)
 	def updateCameraFrame(self, qimg):
-		print("In updateCameraFrame()")
+		#print("In updateCameraFrame()")
 		self.update()
 		self.updatePolish()
 		self.cameraFrame = self.thread.get_frame()
 
 	def paint(self, painter: QPainter) -> None:
 		#print("in paint()")
-		print("in paint - cameraFrame data: " + str(self.cameraFrame))
+		#print("in paint - cameraFrame data: " + str(self.cameraFrame))
 		painter.drawImage(0,0,self.cameraFrame)
 
 # Register as QML type
