@@ -9,7 +9,8 @@ import time
 import cv2
 
 class VideoThread(QThread):
-	frameChanged = Signal(QImage)
+	frameChanged = Signal(bool)
+	qframe = None
 
 	def __init__(self):
 		super().__init__()
@@ -29,15 +30,23 @@ class VideoThread(QThread):
 
 		# Retrieve new frames from frame_buffer and send them off to App
 		while self._run_flag:
-			qframe = self.convert_cv_qt(frame_buffer)
-			self.frameChanged.emit(qframe)
+			#qframe = self.convert_cv_qt(frame_buffer)
+			#self.frameChanged.emit(qframe)
+			self.qframe = self.convert_cv_qt(frame_buffer)
+			self.frameChanged.emit(self.qframe)
 			time.sleep(0.02)
+			print("in run")
+			#self.frameChanged.emit(True)
 
 
 	def stop(self):
 		"""Sets run flag to False and waits for thread to finish"""
 		self._run_flag = False
 		self.wait()
+		
+		
+	def get_frame(self):
+		return self.qframe
 
 
 	def convert_cv_qt(self, cv_img):
