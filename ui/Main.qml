@@ -8,6 +8,7 @@ ApplicationWindow{
 	width: 800
 	height: 400
 	visible: true
+	visibility: "FullScreen"
 	color: "#1a1a1a"
 
 	flags: Qt.Dialog
