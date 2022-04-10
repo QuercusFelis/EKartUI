@@ -10,8 +10,8 @@ Item {
 	APDView {
 		id: apdView
 		anchors.horizontalCenter: parent.horizontalCenter
-		implicitWidth: 534
-		implicitHeight: 400
+		implicitWidth: 640
+		implicitHeight: 480
 		Rectangle {
 			anchors.fill: parent
 			color: "#33AA33"
