@@ -85,7 +85,7 @@ Item {
 				PropertyChanges {
 					target: centerpanel
 					open: false
-					y: -330
+					y: -350
 				}
 				PropertyChanges {target: buttonPanel; x: 800}
 				PropertyChanges {target: tachometer; x: 770; y: 450}

@@ -88,7 +88,7 @@ Text {
 				PropertyChanges {
 					target: mph
 					font.pixelSize: 50
-					anchors.verticalCenterOffset: 160
+					anchors.verticalCenterOffset: 170
 				}
 				PropertyChanges {
 					target: mphLabel
