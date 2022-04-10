@@ -64,12 +64,12 @@ Text {
 				name: "open"
 				PropertyChanges {
 					target: mph
-					font.pixelSize: 130
+					font.pixelSize: 160
 					anchors.verticalCenterOffset: -40
 				}
 				PropertyChanges {
 					target: mphLabel
-					font.pixelSize: 40
+					font.pixelSize: 45
 					color: "#000000"
 				}
 				PropertyChanges {
@@ -88,7 +88,7 @@ Text {
 				PropertyChanges {
 					target: mph
 					font.pixelSize: 50
-					anchors.verticalCenterOffset: 121
+					anchors.verticalCenterOffset: 160
 				}
 				PropertyChanges {
 					target: mphLabel
