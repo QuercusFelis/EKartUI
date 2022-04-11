@@ -10,8 +10,12 @@ Item {
 	APDView {
 		id: apdView
 		anchors.horizontalCenter: parent.horizontalCenter
-		implicitWidth: 534
-		implicitHeight: 400
+		implicitWidth: 640
+		implicitHeight: 480
+		Rectangle {
+			anchors.fill: parent
+			color: "#33AA33"
+		}
 	}
 
 	//CenterPanel
@@ -31,17 +35,19 @@ Item {
 		id: buttonPanel
 	}
 
+/*
 	//Regenerative braking panel
 	RegenPanel {
 		id: regenPanel
 		anchors.bottom: parent.bottom
 		anchors.horizontalCenter: parent.horizontalCenter
 	}
+*/
 
 	//Battery charge panel
 	BatteryPanel {
 		id: batteryPanel
-		x: 230
+		x: 198
 		anchors.bottom: parent.bottom
 	}
 
@@ -67,8 +73,9 @@ Item {
 					y: 0
 				}
 				PropertyChanges {target: buttonPanel; x: 597}
-				PropertyChanges {target: tachometer; x: 560; y: 173}
+				PropertyChanges {target: tachometer; x: 560; y: 253}
 				PropertyChanges {target: infoPanel; x: 0}
+				PropertyChanges {target: batteryPanel; anchors.bottomMargin: 0}
 			},
 			State {
 				name: "camera"
@@ -78,11 +85,12 @@ Item {
 				PropertyChanges {
 					target: centerpanel
 					open: false
-					y: -250
+					y: -350
 				}
 				PropertyChanges {target: buttonPanel; x: 800}
-				PropertyChanges {target: tachometer; x: 770; y: 370}
+				PropertyChanges {target: tachometer; x: 770; y: 450}
 				PropertyChanges {target: infoPanel; x: -240}
+				PropertyChanges {target: batteryPanel; anchors.bottomMargin: -56}
 			}
 		]
 		
@@ -117,6 +125,11 @@ Item {
 					PropertyAnimation {
 						target: tachometer
 						property: "y"
+						duration: 150
+					}
+					PropertyAnimation {
+						target: batteryPanel
+						property: "anchors.bottomMargin"
 						duration: 150
 					}
 				}

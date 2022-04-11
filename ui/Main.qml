@@ -6,7 +6,7 @@ import "./dashboard"
 ApplicationWindow{
 	id: window
 	width: 800
-	height: 400
+	height: 480
 	visible: true
 	visibility: "FullScreen"
 	color: "#1a1a1a"

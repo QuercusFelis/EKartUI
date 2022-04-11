@@ -10,6 +10,17 @@ Image {
 	source: "../images/centerpanel.png"
 	fillMode: Image.PreserveAspectFit
 
+	Image {
+		id: ramsLogo
+		visible: DashboardController.locked
+		anchors.verticalCenter: parent.verticalCenter
+		anchors.horizontalCenter: parent.horizontalCenter
+		source: "../images/CSU-Ram-Rev.png"
+		mipmap: true
+		width: 280
+		height: 280
+	}
+
 	Speedometer {
 		id: speedometer
 		anchors.verticalCenterOffset: -40
