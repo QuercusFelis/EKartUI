@@ -7,7 +7,7 @@ import lib.APDView
 app = QGuiApplication([])
 engine = QQmlApplicationEngine()
 
-QFontDatabase.addApplicationFont("fonts/Royal_Rumble_Haettenschweiler.ttf")
+QFontDatabase.addApplicationFont("ui/fonts/Royal_Rumble_Haettenschweiler.ttf")
 engine.load("ui/Main.qml")
 
 if not engine.rootObjects():
