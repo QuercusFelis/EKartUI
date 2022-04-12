@@ -9,18 +9,21 @@ QML_IMPORT_MAJOR_VERSION = 1
 @QmlSingleton
 class DashboardController(QObject):
 	testPlus = True #temp var used for test code
+	erpmVal = 0
 	rpmVal = 0
+	# Pole pairs of motor - determined by counting number of poles inside motor
+	pole_pairs = 6
 	batteryPercentage = 0.0
 	direction = "parked"
 	dashState = "locked"
 	isHeadlightOn = False
+	# Set up shared memory with can_parse.py for getting ERPM data
 	try:
-		rpm_shm = SharedMemory(name="rpm")
-		rpm_buffer = rpm_shm.buf
+		erpm_shm = SharedMemory(name="rpm")
+		erpm_buffer = erpm_shm.buf
 	except:
 		print("ERROR: Unable to connect to can_parse via shared memory. Check that can_parse.py is running.")
 		rpmVal = "ERROR"
-
 	rpmChanged = Signal(int)
 	battPercentChanged = Signal(float)
 	directionChanged = Signal(str)
@@ -51,7 +54,11 @@ class DashboardController(QObject):
 		###################
 		
 		# Get RPM value
-		self.rpmVal = int.from_bytes(self.rpm_buffer, byteorder='big')
+		self.erpmVal = int.from_bytes(self.erpm_buffer, byteorder='big')
+		self.rpmVal = int(self.erpmVal / self.pole_pairs)
+		
+		# TEMPORARY - Set battery value for display for e-days
+		self.batteryPercentage = 0.75 
 		
 		self.rpmChanged.emit(self.rpmVal)
 		self.battPercentChanged.emit(self.batteryPercentage)

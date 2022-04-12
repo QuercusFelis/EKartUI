@@ -10,20 +10,21 @@ rpm_buffer[:] = temp_rpm.to_bytes(32, byteorder='big')
 
 while True:
 	output = process.stdout.readline()
-	print(output.strip())
+	#print(output.strip())
 	
 	timestamp, interface, data = output = output.strip().split(" ",2)
 	can_id, raw_data = data.split("#",1)
 	
-	print("Timestamp: " + timestamp)
-	print("Interface: " + interface)
-	print("CAN ID: " + can_id)
-	print("Raw Data: " + raw_data)
+	# print("Timestamp: " + timestamp)
+	# print("Interface: " + interface)
+	# print("CAN ID: " + can_id)
+	# print("Raw Data: " + raw_data)
 	
-	can_id = int(can_id)
+	can_id = int(can_id, 16)
+	#print(can_id)
 	raw_data = int(raw_data, 16)
 	
-	if can_id == 141:
+	if can_id == 2368:
 		rpm = raw_data >> 32
 		curr_all_units = (raw_data >> 16) & 0xFFFF
 		latest_duty_cycle = raw_data & 0xFFFF
