@@ -1,5 +1,6 @@
 from PySide6.QtCore import QObject, Property, Slot, Signal
 from PySide6.QtQml import QmlElement, QmlSingleton
+from multiprocessing.shared_memory import SharedMemory
 
 QML_IMPORT_NAME = "org.ekart.DashboardController"
 QML_IMPORT_MAJOR_VERSION = 1
@@ -13,6 +14,12 @@ class DashboardController(QObject):
 	direction = "parked"
 	dashState = "locked"
 	isHeadlightOn = False
+	try:
+		rpm_shm = SharedMemory(name="rpm")
+		rpm_buffer = rpm_shm.buf
+	except:
+		print("ERROR: Unable to connect to can_parse via shared memory. Check that can_parse.py is running.")
+		rpmVal = "ERROR"
 
 	rpmChanged = Signal(int)
 	battPercentChanged = Signal(float)
@@ -22,8 +29,7 @@ class DashboardController(QObject):
 #Update Tick Functions
 	def __init__(self, parent=None):
 		QObject.__init__(self, parent)
-		self.startTimer(25)
-
+		self.startTimer(25)		
 
 	def timerEvent(self, event):
 		self.update()
@@ -31,18 +37,22 @@ class DashboardController(QObject):
 
 	def update(self):		
 		#tempory test code
-		if self.testPlus:
-			self.batteryPercentage += 0.005
-		else:
-			self.batteryPercentage -= 0.005
+		# if self.testPlus:
+			# self.batteryPercentage += 0.005
+		# else:
+			# self.batteryPercentage -= 0.005
 
-		if self.batteryPercentage >= 1:
-			self.testPlus = False
-			self.rpmVal = 2500
-		elif self.batteryPercentage <= 0:
-			self.testPlus = True
-			self.rpmVal = 0
+		# if self.batteryPercentage >= 1:
+			# self.testPlus = False
+			# self.rpmVal = 2500
+		# elif self.batteryPercentage <= 0:
+			# self.testPlus = True
+			# self.rpmVal = 0
 		###################
+		
+		# Get RPM value
+		self.rpmVal = int.from_bytes(self.rpm_buffer, byteorder='big')
+		
 		self.rpmChanged.emit(self.rpmVal)
 		self.battPercentChanged.emit(self.batteryPercentage)
 

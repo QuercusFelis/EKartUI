@@ -39,7 +39,7 @@ class VideoThread(QThread):
 				#print("in run")
 				#self.frameChanged.emit(True)
 		except:
-			print("ERROR: Unable to connect with APD via shared memory.")
+			print("ERROR: Unable to connect to APD via shared memory. Check that APD's detect.py is running.")
 
 
 	def stop(self):
