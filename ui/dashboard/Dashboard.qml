@@ -12,10 +12,6 @@ Item {
 		anchors.horizontalCenter: parent.horizontalCenter
 		implicitWidth: 640
 		implicitHeight: 480
-		Rectangle {
-			anchors.fill: parent
-			color: "#33AA33"
-		}
 	}
 
 	//CenterPanel
