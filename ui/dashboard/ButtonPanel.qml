@@ -92,7 +92,7 @@ Image {
 	//Settings Button
 	Button {
 		id: lock
-		text: "Lock"
+		text: DashboardController.locked ? "Unlock" : "Lock"
 		checked: DashboardController.locked
 		anchors.top: camera.bottom
 		anchors.left: parent.left
