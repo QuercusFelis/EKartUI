@@ -90,11 +90,7 @@ EIR Mentor: Doug Bartlett"
 			},
 			State {
 				name: "locked"
-				PropertyChanges {
-					target: park
-					visible: (!DashboardController.locked && 
-						(DashboardController.atRest || DashboardController.parked))
-				}
+				PropertyChanges {target: park; visible: true}
 				PropertyChanges {target: credits; visible: false}
 			}
 		]
