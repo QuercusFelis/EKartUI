@@ -2,7 +2,7 @@ import subprocess
 from multiprocessing.shared_memory import SharedMemory
 
 # CAMs note: I believe this command is only asking to print data comming from the id with can0. We use can1 now
-process = subprocess.Popen(['candump', 'can1', '-L'], stdout=subprocess.PIPE, universal_newlines=True)
+process = subprocess.Popen(['candump', 'can0', '-L'], stdout=subprocess.PIPE, universal_newlines=True)
 rpm_shm = SharedMemory(name="rpm", create=True, size=32)
 rpm_buffer = rpm_shm.buf
 temp_rpm = 0
