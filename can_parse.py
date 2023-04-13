@@ -1,14 +1,14 @@
 import subprocess
 from multiprocessing.shared_memory import SharedMemory
 
-# CAMs note: I believe this command is only asking to print data comming from the id with can0. We use can1 now
-process = subprocess.Popen(['candump', 'can1', '-L'], stdout=subprocess.PIPE, universal_newlines=True)
+# CAMs note: This is running candump and looking at can version -can0. "can0" is not refering to master or slave ESC ID 
+process = subprocess.Popen(['candump', 'can0', '-L'], stdout=subprocess.PIPE, universal_newlines=True)
 rpm_shm = SharedMemory(name="rpm", create=True, size=32)
 rpm_buffer = rpm_shm.buf
 temp_rpm = 0
 rpm_buffer[:] = temp_rpm.to_bytes(32, byteorder='big')
 
-Iterations = 5000
+Iterations = 10000
 NUM_ITERATIONS = Iterations
 KNOWN_CAN_IDS = []
 CAN_UNSORTED = ""
@@ -50,13 +50,6 @@ while True:
 		
 	print()
 	
-	return_code = process.poll()
-	if return_code is not None:
-		print("Return code: ", return_code)
-		for output in process.stdout.readlines():
-			print(output.strip())
-		break
-
 	# For CAN_SORTED_DATA no dupicate items are added. Each time code is run it check the new incomming data
 	# FIXME INCOMPLETE!!!
 	if NUM_ITERATIONS > 0:
@@ -85,8 +78,9 @@ while True:
 	elif NUM_ITERATIONS == 0:
 		#CAN_INFO_FILE = open("CAN_INFO_SORTED.txt" ,"w")
 		#Header = """This file contains sorted data from the can bus generated from 'can_parse.py' and currently records {Iterations} CAN bus Interactions.
-		#The purpose of this file is to give some insight into the CAN data given from the command: candump. This file is only reading
-		#data comming from can1 (The Master ESC)."""
+		#The purpose of this file is to give some insight into the CAN data given from the command: candump.
+		#
+		#"""
 		
 		#CAN_INFO_FILE.close()
 		RAW_INFO_FILE = open("CAN_INFO_RAW.txt", "w")
@@ -94,3 +88,12 @@ while True:
 		RAW_INFO_FILE.close()
 		# So this doesnt repeat...
 		NUM_ITERATIONS = -1
+
+	return_code = process.poll()
+	if return_code is not None:
+		print("Return code: ", return_code)
+		for output in process.stdout.readlines():
+			print(output.strip())
+		break
+
+	
