@@ -13,6 +13,8 @@ NUM_ITERATIONS = Iterations
 KNOWN_CAN_IDS = []
 CAN_UNSORTED = ""
 
+print("Entering Loop: ")
+
 while True:
 	# while statement is blocked until there is a new line to read
 	output = process.stdout.readline()
@@ -25,7 +27,8 @@ while True:
 	# print("Interface: " + interface)
 	# print("CAN ID: " + can_id)
 	# print("Raw Data: " + raw_data)
-	
+	print("Output: " + timestamp + " " + interface + " " + data + "\n")
+
 	can_id = int(can_id, 16)
 	#print(can_id)
 	raw_data = int(raw_data, 16)
@@ -48,15 +51,16 @@ while True:
 		print("Total amp hours consumed by unit * 10000: " + str(total_amphrs_consumed))
 		print("Total regen amp hours back into batt * 10000: " + str(total_regen_hrs))
 		
-	print()
+	#print()
 	
 	# For CAN_SORTED_DATA no dupicate items are added. Each time code is run it check the new incomming data
 	# FIXME INCOMPLETE!!!
 	if NUM_ITERATIONS > 0:
+		print(str(NUM_ITERATIONS))
 		NUM_ITERATIONS = NUM_ITERATIONS - 1
 		
 		# Gather Unsorted Data
-		CAN_UNSORTED += output + "\n"
+		CAN_UNSORTED += timestamp + " " + interface + " " + data + "\n"
 		
 		# Sort Data
 		"""if len(KNOWN_CAN_IDS) == 0:
@@ -81,7 +85,7 @@ while True:
 		#The purpose of this file is to give some insight into the CAN data given from the command: candump.
 		#
 		#"""
-		
+		print("Finish Test!!!")
 		#CAN_INFO_FILE.close()
 		RAW_INFO_FILE = open("CAN_INFO_RAW.txt", "w")
 		RAW_INFO_FILE.write(CAN_UNSORTED)
