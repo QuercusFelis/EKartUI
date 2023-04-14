@@ -63,33 +63,45 @@ while True:
 		CAN_UNSORTED += timestamp + " " + interface + " " + data + "\n"
 		
 		# Sort Data
-		"""if len(KNOWN_CAN_IDS) == 0:
+		if len(KNOWN_CAN_IDS) == 0:
 			KNOWN_CAN_IDS.append({"id": can_id, "raw_data": [raw_data]})
 		else:
-			recorded_id = False
 			for can_info in KNOWN_CAN_IDS:
-				if recorded_id == False:
-					id = can_info.get("id")
-					if id == can_id:
-						# So we can find pattern in the raw data and make something usefull with it
-						can_info.get("raw_data").append(raw_data)
-						recorded_id = True
-						break
-			if recorded_id == False:
+				if can_info.get("id") == can_id:
+					can_info.get("raw_data").append(raw_data)
+					break
+			# else statement only executes if the break statement was not reached
+			else:
 				KNOWN_CAN_IDS.append({"id": can_id, "raw_data": [raw_data]})
-			"""
+
 			
+	# At the end of a test save the results		
 	elif NUM_ITERATIONS == 0:
-		#CAN_INFO_FILE = open("CAN_INFO_SORTED.txt" ,"w")
-		#Header = """This file contains sorted data from the can bus generated from 'can_parse.py' and currently records {Iterations} CAN bus Interactions.
-		#The purpose of this file is to give some insight into the CAN data given from the command: candump.
-		#
-		#"""
-		print("Finish Test!!!")
-		#CAN_INFO_FILE.close()
+		print("Finished Running Test!")
+
+		CAN_INFO_FILE = open("CAN_INFO_SORTED.txt" ,"w")
+		Header = """This file contains sorted data from the can bus generated from 'can_parse.py' and currently records {Iterations} CAN bus Interactions.
+		The purpose of this file is to give some insight into the CAN data given from the command: candump. All CanIds and Data shown in this
+		file are in Hex.
+		
+		Found CAN IDs:
+		"""
+		for CanData in KNOWN_CAN_IDS:
+			Header += hex(CanData.get("id"))[2:].upper() + " "
+		Header += "\n\nCANID" + "{:<8}".format("RAW DATA")
+		for CanData in KNOWN_CAN_IDS:
+			Header += "\n\nid: " + hex(CanData.get("id"))[2:].upper() + "\n"
+			for RawData in CanData.get("raw_data"):
+				Header += "\t\t" + hex(RawData)[2:].upper() +"\n" 
+		CAN_INFO_FILE.write(Header)
+		CAN_INFO_FILE.close()
+		print("Created CAN_INFO_SORTED.txt")
+		
 		RAW_INFO_FILE = open("CAN_INFO_RAW.txt", "w")
 		RAW_INFO_FILE.write(CAN_UNSORTED)
 		RAW_INFO_FILE.close()
+		print("Created CAN_INFO_RAW.txt")
+
 		# So this doesnt repeat...
 		NUM_ITERATIONS = -1
 
