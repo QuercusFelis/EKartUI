@@ -34,7 +34,7 @@ while True:
 	raw_data = int(raw_data, 16)
 
 	# can_id 2368 might not be RPM with current ESCs. Currently under investigations
-	if can_id == 2368:
+	if can_id == 2305:
 		rpm = raw_data >> 32
 		curr_all_units = (raw_data >> 16) & 0xFFFF
 		latest_duty_cycle = raw_data & 0xFFFF
