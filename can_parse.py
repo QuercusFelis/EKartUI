@@ -1,12 +1,45 @@
+# File Description:
+#	Run the command 'candump can0 -L' and then read info from the CAN bus. This runs the command candump for the
+# 	can interface 'can-0' (interface is set up in start_ui.sh). The data is then uploaded to various shared memory's
+#	which can be shared to various files such as DashboardController.py.
+#
+# 	Currently the file is in a 'Test Mode' so it will record Iterations /1,000 (s) of data from the canbus. It creates
+#	two files 'CAN_INFO_SORTED.txt' and 'CAN_INFO_RAW.txt'. 
+#
+#	Info on structure of CAN messages ie. can_id (CAN_PACKET_STATUS), controller id's (Master == 0x01, Slave == 0x02)
+# 	and and the data for all of these packets (raw_data) can be found at
+#	https://dongilc.gitbook.io/openrobot-inc/tutorials/control-with-can#4.-can-bus-load-test
+
+
 import subprocess
 from multiprocessing.shared_memory import SharedMemory
 
 # CAMs note: This is running candump and looking at can version -can0. "can0" is not refering to master or slave ESC ID 
 process = subprocess.Popen(['candump', 'can0', '-L'], stdout=subprocess.PIPE, universal_newlines=True)
+
+# Shared memories: Data to share with DashboardController.py
+# FIXME close() the shared Memories!
 rpm_shm = SharedMemory(name="rpm", create=True, size=32)
+current_shm = SharedMemory(name="current", create=True, size=16)
+watt_hrs_shm = SharedMemory(name="watt_hr", create=True, size=32)
+watt_hrs_charged_shm = SharedMemory(name="watt_hrs_charged", create=True, size=32)
+v_in_shm = SharedMemory(name="v_in", create=True, size=16)
+
 rpm_buffer = rpm_shm.buf
 temp_rpm = 0
 rpm_buffer[:] = temp_rpm.to_bytes(32, byteorder='big')
+current_buffer = current_shm.buf
+temp_current = 0
+current_buffer[:] = temp_current.to_bytes(16, byteorder='big')
+watt_hrs_buffer = watt_hrs_shm.buf
+temp_watt_hrs = 0
+watt_hrs_buffer[:] = temp_watt_hrs.to_bytes(32, byteorder='big')
+watt_hrs_charged_buffer = watt_hrs_charged_shm.buf
+temp_watt_hrs_charged = 0
+watt_hrs_charged_buffer[:] = temp_watt_hrs_charged.to_bytes(32, byteorder='big')
+v_in_buffer = v_in_shm.buf
+temp_v_in = 0
+v_in_buffer[:] = temp_v_in.to_bytes(32, 'big')
 
 Iterations = 10000
 NUM_ITERATIONS = Iterations
@@ -33,23 +66,31 @@ while True:
 	#print(can_id)
 	raw_data = int(raw_data, 16)
 
-	# can_id 2368 might not be RPM with current ESCs. Currently under investigations
+	# can_id 0x901 (2305) is the Master CAN_STATUS_PACKET that has RPM, current, and duty cycle
 	if can_id == 2305:
 		rpm = raw_data >> 32
 		curr_all_units = (raw_data >> 16) & 0xFFFF
 		latest_duty_cycle = raw_data & 0xFFFF
-		print("RPM: " + str(rpm))
-		print("Total current in all units * 10: " + str(curr_all_units))
-		print("Latest duty cycle * 1000: " + str(latest_duty_cycle))
-		
+		#print("RPM: " + str(rpm))
+		#print("Total current in all units * 10: " + str(curr_all_units))
+		#print("Latest duty cycle * 1,000: " + str(latest_duty_cycle))
 		rpm_buffer[:] = rpm.to_bytes(32, byteorder='big')
+		current_buffer[:] = curr_all_units.to_bytes(16, byteorder='big')
 		
-	# can_id 142 might not be total amphrs on current ESCs. Currently under Investigation	
-	elif can_id == 142:
-		total_amphrs_consumed = raw_data >> 32
-		total_regen_hrs = raw_data & 0xFFFFFFFF
-		print("Total amp hours consumed by unit * 10000: " + str(total_amphrs_consumed))
-		print("Total regen amp hours back into batt * 10000: " + str(total_regen_hrs))
+	# can_id 0xF01 (3841) is the Master CAN_STATUS_PACKET_3 that has watt_hrs and watt_hrs_charged
+	elif can_id == 3841:
+		watt_hrs = raw_data >> 32
+		watt_hrs_charged = raw_data & 0xFFFFFFFF
+		#print("Watt hrs * 10,000: " + str(watt_hrs))
+		#print("Watt hrs charged * 10,000: " + str(watt_hrs_charged))
+		watt_hrs_buffer[:] = watt_hrs.to_bytes(32, "big")
+		watt_hrs_charged_buffer[:] = watt_hrs_charged.to_bytes(32, "big")
+
+	# can_id 0x1B01 (6913) is the Master CAN_STATUS_PACKET_5 that has tacho_value, v_in, and two reserved bytes
+	elif can_id == 6913:
+		v_in = (raw_data >> 16) & 0xFFFF
+		#print("V_in * 10: " str(v_in))
+		v_in_buffer[:] = v_in.to_bytes(16, byteorder='big')
 		
 	#print()
 	
