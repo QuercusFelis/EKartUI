@@ -51,8 +51,10 @@ Image {
 		font.family: "Haettenschweiler"
 		font.pixelSize: 22
 		hoverEnabled: false
-		onClicked: stateGroup.state = "camera"
-
+		onClicked: {
+        Backend.use_camera()
+        stateGroup.state = "camera"
+    }
 		background: Rectangle {
 			implicitHeight: buttonSize
 			border.color: "#1a1a1a"
@@ -72,7 +74,10 @@ Image {
 		font.family: "Haettenschweiler"
 		font.pixelSize: 22
 		hoverEnabled: false
-		onClicked: stateGroup.state = "backCamera"
+		onClicked: {
+			Backend.use_back_camera()
+        	stateGroup.state = "backCamera"
+		}
 
 		background: Rectangle {
 			implicitHeight: buttonSize
