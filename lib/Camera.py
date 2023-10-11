@@ -12,7 +12,7 @@ class Backend(QObject):
     @Slot()
     def use_back_camera(self):
         # Run the detection model with the second camera source
-        self.run_detection(source=1)
+        self.run_detection(source=2)
 
     def run_detection(self, source):
         os.system(f"python detect.py --weights ./528Project/kittikaleov2-int8_320_edgetpu.tflite --img 320 --conf 0.25 --source {source}")
