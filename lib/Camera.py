@@ -1,15 +1,15 @@
-from PySide6.QtCore import QObject, Property, Slot, Signal, pyqtSlot
+from PySide6.QtCore import QObject, Property, Slot, Signal, PyQtSlot
 from PySide6.QtQml import QmlElement, QmlSingleton
 import os
 
 class Backend(QObject):
 
-    @pyqtSlot()
+    @PyQtSlot()
     def use_camera(self):
         # Run the detection model with the first camera source
         self.run_detection(source=0)
 
-    @pyqtSlot()
+    @PyQtSlot()
     def use_back_camera(self):
         # Run the detection model with the second camera source
         self.run_detection(source=1)
