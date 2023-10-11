@@ -65,7 +65,7 @@ Image {
 		id: backCamera
 		text: "Reverse Camera"
 		anchors.top: camera.bottom
-		anchors.right: camera.right
+		anchors.right: parent.right
 		anchors.topMargin: outerMargin
 		anchors.rightMargin: outerMargin
 		anchors.leftMargin: innerMargin
@@ -85,31 +85,31 @@ Image {
 
 	}
 	//Settings Button
-	Button {
-		id: settings
-		text: "Settings"
-		anchors.top: backCamera.bottom
-		anchors.right: parent.right
-		anchors.topMargin: innerMargin
-		anchors.rightMargin: outerMargin
-		anchors.leftMargin: outerMargin
-		implicitWidth: DashboardController.parked ? buttonSize : 183
-		implicitHeight: buttonSize
-		font.family: "Haettenschweiler"
-		font.pixelSize: 17
-		hoverEnabled: false
-		onClicked: {
-			DashboardController.state = "settings"
-		}
+	//Button {
+	//	id: settings
+	//	text: "Settings"
+	//	anchors.top: backCamera.bottom
+	//	anchors.right: parent.right
+	//	anchors.topMargin: innerMargin
+	//	anchors.rightMargin: outerMargin
+	//	anchors.leftMargin: outerMargin
+	//	implicitWidth: DashboardController.parked ? buttonSize : 183
+	//	implicitHeight: buttonSize
+	//	font.family: "Haettenschweiler"
+	//	font.pixelSize: 17
+	//	hoverEnabled: false
+	//	onClicked: {
+	//		DashboardController.state = "settings"
+	//	}
 
-		background: Rectangle {
-			anchors.fill: parent
-			border.color: "#1a1a1a"
-			border.width: 4
-			radius: buttonRadius
-			color: parent.down ? "#c0c0c0" : "#f2f2f2"
-		}
-	}
+	//	background: Rectangle {
+	//		anchors.fill: parent
+	//		border.color: "#1a1a1a"
+	//		border.width: 4
+	//		radius: buttonRadius
+	//		color: parent.down ? "#c0c0c0" : "#f2f2f2"
+	//	}
+//	}
 
 	//Settings Button
 	Button {
