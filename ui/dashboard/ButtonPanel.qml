@@ -61,12 +61,34 @@ Image {
 			color: parent.down ? "#c0c0c0" : "#f2f2f2"
 		}
 	}
+	Button {
+		id: backCamera
+		text: "Reverse Camera"
+		anchors.top: camera.bottom
+		anchors.right: camera.right
+		anchors.topMargin: outerMargin
+		anchors.rightMargin: outerMargin
+		anchors.leftMargin: innerMargin
+		font.family: "Haettenschweiler"
+		font.pixelSize: 22
+		hoverEnabled: false
+		onClicked: stateGroup.state = "backCamera"
 
+		background: Rectangle {
+			implicitHeight: buttonSize
+			border.color: "#1a1a1a"
+			border.width: 4
+			radius: buttonRadius
+			color: parent.down ? "#c0c0c0" : "#f2f2f2"
+		}
+
+
+	}
 	//Settings Button
 	Button {
 		id: settings
 		text: "Settings"
-		anchors.top: camera.bottom
+		anchors.top: backCamera.bottom
 		anchors.right: parent.right
 		anchors.topMargin: innerMargin
 		anchors.rightMargin: outerMargin
