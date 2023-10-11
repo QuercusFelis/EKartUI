@@ -87,6 +87,21 @@ Item {
 				PropertyChanges {target: tachometer; x: 770; y: 450}
 				PropertyChanges {target: infoPanel; x: -240}
 				PropertyChanges {target: batteryPanel; anchors.bottomMargin: -56}
+			},
+			State {
+				name: "backCamera"
+				PropertyChanges {
+					target: apdView; opacity: 1
+				}
+				PropertyChanges {
+					target: centerpanel
+					open: false
+					y: -350
+				}
+				PropertyChanges {target: buttonPanel; x: 800}
+				PropertyChanges {target: tachometer; x: 770; y: 450}
+				PropertyChanges {target: infoPanel; x: -240}
+				PropertyChanges {target: batteryPanel; anchors.bottomMargin: -56}
 			}
 		]
 		
