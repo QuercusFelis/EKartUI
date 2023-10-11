@@ -101,7 +101,7 @@ Image {
 	//	onClicked: {
 	//		DashboardController.state = "settings"
 	//	}
-
+	//
 	//	background: Rectangle {
 	//		anchors.fill: parent
 	//		border.color: "#1a1a1a"
