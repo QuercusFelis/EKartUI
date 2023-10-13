@@ -68,11 +68,13 @@ Image {
 		text: "Reverse Camera"
 		anchors.top: camera.bottom
 		anchors.right: parent.right
-		anchors.topMargin: outerMargin
+		anchors.topMargin: innerMargin
 		anchors.rightMargin: outerMargin
-		anchors.leftMargin: innerMargin
+		anchors.leftMargin: outerMargin
+		implicitWidth: DashboardController.parked ? buttonSize : 183
+		implicitHeight: buttonSize
 		font.family: "Haettenschweiler"
-		font.pixelSize: 22
+		font.pixelSize: 17
 		hoverEnabled: false
 		onClicked: {
 			Backend.use_back_camera()
