@@ -119,30 +119,30 @@ Image {
 //	}
 
 	//Settings Button
-	Button {
-		id: lock
-		text: DashboardController.locked ? "Unlock" : "Lock"
-		checked: DashboardController.locked
-		anchors.top: camera.bottom
-		anchors.left: parent.left
-		anchors.topMargin: innerMargin
-		anchors.leftMargin: outerMargin
-		font.family: "Haettenschweiler"
-		font.pixelSize: 22
-		hoverEnabled: false
-		onClicked: {
-			if(checked) DashboardController.state = "default"
-			else DashboardController.state = "locked"
-		}
-
-		background: Rectangle {
-			implicitHeight: buttonSize
-			border.color: "#1a1a1a"
-			border.width: 4
-			radius: buttonRadius
-			color: parent.checked ? "#ffb0b0" : "#f2f2f2"
-		}
-	}
+//	Button {
+//		id: lock
+//		text: DashboardController.locked ? "Unlock" : "Lock"
+//		checked: DashboardController.locked
+//		anchors.top: camera.bottom
+//		anchors.left: parent.left
+//		anchors.topMargin: innerMargin
+//		anchors.leftMargin: outerMargin
+//		font.family: "Haettenschweiler"
+//		font.pixelSize: 22
+//		hoverEnabled: false
+//		onClicked: {
+//			if(checked) DashboardController.state = "default"
+//			else DashboardController.state = "locked"
+//		}
+//
+//		background: Rectangle {
+//			implicitHeight: buttonSize
+//			border.color: "#1a1a1a"
+//			border.width: 4
+//			radius: buttonRadius
+//			color: parent.checked ? "#ffb0b0" : "#f2f2f2"
+//		}
+//	}
 
 	//Back Button
 	Button {
