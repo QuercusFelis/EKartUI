@@ -2,6 +2,7 @@ import QtQuick
 //import QtQuick.Timeline
 import QtQuick.Controls
 import org.ekart.DashboardController 1.0
+import Backend 1.0
 
 Image {
 	readonly property int buttonSize: 65
@@ -11,6 +12,10 @@ Image {
 
 	source: "../images/buttonpanel.png"
 	fillMode: Image.PreserveAspectFit
+
+	Backend {
+        id: backendInstance
+	}
 
 	//Lights Toggle
 	Button {
@@ -52,7 +57,7 @@ Image {
 		font.pixelSize: 22
 		hoverEnabled: false
 		onClicked: {
-        Backend.use_camera()
+        backendInstance.use_camera()
         stateGroup.state = "camera"
     }
 		background: Rectangle {
@@ -77,7 +82,7 @@ Image {
 		font.pixelSize: 17
 		hoverEnabled: false
 		onClicked: {
-			Backend.use_back_camera()
+			backendInstance.use_back_camera()
         	stateGroup.state = "backCamera"
 		}
 
