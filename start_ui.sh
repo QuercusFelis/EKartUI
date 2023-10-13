@@ -10,7 +10,7 @@ nohup python ./can_parse.py &
 sleep 3
 
 # Start up APD
-cd ~/projects/APD_deploy
+cd ~/projects/APD_deploy/yolov5
 nohup ./run_it.sh &
 sleep 30
 
