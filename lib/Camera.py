@@ -15,5 +15,5 @@ class Backend(QObject):
         self.run_detection(source=2)
 
     def run_detection(self, source):
-        os.system(f"python detect.py --weights ./528Project/kittikaleov2-int8_320_edgetpu.tflite --img 320 --conf 0.25 --source {source}")
+        os.system(f"python detect.py --weights ./home/gokart/projects/APD_deploy/yolov5/528Project/kittikaleov2-int8_320_edgetpu.tflite --img 320 --conf 0.25 --source {source}")
 
