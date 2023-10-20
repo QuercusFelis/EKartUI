@@ -14,6 +14,11 @@ cd ~/projects/APD_deploy/yolov5
 nohup ./run_it.sh &
 sleep 30
 
+# Start up APD
+cd ~/projects/APD_deploy/yolov5
+nohup ./run_it2.sh &
+sleep 30
+
 # Start up EKartUI
 cd ~/projects/EKartUI
 nohup python ./Main.py &
